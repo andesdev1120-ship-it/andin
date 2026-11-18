@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andenara Academy</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --biru: #0b3b82;
+    --gelap: #062d68;
+    --pucat: #e8f0fa;
+    --abu: #f5f7fb;
+    --teks: #263449;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--abu);
+    color: var(--teks);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* NAVBAR */
+header {
+    background: white;
+    box-shadow: 0 3px 15px #0001;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--biru);
+    font-weight: 900;
+    font-size: 17px;
+    white-space: nowrap;
+}
+
+.logo img {
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-links a {
+    padding: 9px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--gelap);
+    border-radius: 6px;
+}
+
+.nav-links a:hover {
+    background: var(--pucat);
+}
+
+.menu-btn {
+    display: none;
+    background: var(--biru);
+    color: white;
+    border: none;
+    padding: 8px 13px;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    background: var(--biru);
+    color: white;
+    border: none;
+    padding: 11px 19px;
+    border-radius: 7px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn:hover {
+    background: var(--gelap);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+/* HALAMAN */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+section {
+    padding: 40px 8%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-title {
+    margin-bottom: 22px;
+}
+
+.section-title h2 {
+    color: var(--biru);
+    font-size: 27px;
+}
+
+.section-title p {
+    color: #66758a;
+}
+
+/* HERO SLIDER */
+.hero {
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    margin: 18px 8%;
+    border-radius: 12px;
+    background: var(--gelap);
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: .6s;
+    pointer-events: none;
+}
+
+.slide.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(4,35,82,.92),
+        rgba(8,59,130,.25)
+    );
+    display: flex;
+    align-items: center;
+    padding: 8%;
+    color: white;
+}
+
+.slide-overlay h1,
+.slide-overlay h3 {
+    font-size: 34px;
+    line-height: 1.2;
+}
+
+.slide-overlay p {
+    max-width: 550px;
+    margin: 12px 0 18px;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffffff66;
+    color: white;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-size: 24px;
+    z-index: 5;
+}
+
+.prev {
+    left: 12px;
+}
+
+.next {
+    right: 12px;
+}
+
+.slider-nav {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 9px;
+    z-index: 5;
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: none;
+    background: #ffffff88;
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.3);
+}
+
+/* CARD DAN GRID */
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 13px;
+    box-shadow: 0 4px 18px #0000000c;
+    border: 1px solid #e2e7ef;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    transition: .3s;
+}
+
+.grid2,
+.grid3,
+.grid4 {
+    display: grid;
+    gap: 20px;
+}
+
+.grid2 {
+    grid-template-columns: repeat(2,1fr);
+}
+
+.grid3 {
+    grid-template-columns: repeat(3,1fr);
+}
+
+.grid4 {
+    grid-template-columns: repeat(4,1fr);
+}
+
+/* SAMBUTAN */
+.sambutan {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.kepala-img {
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--pucat);
+    margin: auto;
+    cursor: zoom-in;
+}
+
+/* BERITA */
+.berita-card {
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.berita-card img {
+    width: 100%;
+    height: 175px;
+    object-fit: cover;
+}
+
+.berita-content {
+    padding: 17px;
+}
+
+.berita-content h3 {
+    color: var(--biru);
+}
+
+/* GURU */
+.guru-card {
+    text-align: center;
+}
+
+.guru-card img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    border: 4px solid var(--pucat);
+}
+
+/* STRUKTUR ORGANISASI */
+.struktur-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+.struktur-row {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.struktur-box {
+    background: white;
+    border: 2px solid var(--biru);
+    border-radius: 14px;
+    padding: 20px 16px 16px;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0 4px 14px #0000000c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.struktur-box img {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 4px solid var(--pucat);
+    margin-bottom: 12px;
+    background: #ddd;
+    cursor: zoom-in;
+}
+
+.struktur-box b {
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--gelap);
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.struktur-box p {
+    font-size: 13px;
+    color: #66758a;
+    margin-top: 4px;
+}
+
+.struktur-box.utama {
+    border-color: var(--gelap);
+    background: linear-gradient(180deg,#fff,#eef4ff);
+    width: 250px;
+}
+
+/* EKSTRAKURIKULER */
+.ekstra-card {
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+.ekstra-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.ekstra-content {
+    padding: 18px;
+}
+
+.tag {
+    display: inline-block;
+    background: var(--pucat);
+    color: var(--biru);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* FASILITAS */
+.fasilitas-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.fasilitas-card {
+    background: white;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 1px solid #e2e7ef;
+    box-shadow: 0 4px 18px #0000000c;
+    display: flex;
+    flex-direction: column;
+}
+
+.fasilitas-card:hover {
+    transform: translateY(-3px);
+    transition: .3s;
+}
+
+.fasilitas-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    cursor: zoom-in;
+}
+
+.fasilitas-content {
+    padding: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.fasilitas-content h3 {
+    color: var(--biru);
+}
+
+.fasilitas-content p {
+    font-size: 14px;
+    color: #66758a;
+    flex: 1;
+}
+
+/* PPDB */
+.ppdb {
+    background: linear-gradient(135deg,var(--biru),var(--gelap));
+    color: white;
+    border-radius: 12px;
+    padding: 40px 8%;
+}
+
+.ppdb h2,
+.ppdb .section-title p {
+    color: white;
+}
+
+.alur {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.alur-step {
+    background: white;
+    color: var(--teks);
+    padding: 20px;
+    border-radius: 12px;
+    width: 210px;
+    text-align: center;
+}
+
+.alur-step b {
+    display: block;
+    color: var(--biru);
+    font-size: 30px;
+}
+
+.form-box {
+    max-width: 650px;
+    margin: auto;
+    background: white;
+    color: var(--teks);
+    padding: 25px;
+    border-radius: 14px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccd5e2;
+    border-radius: 7px;
+    font-family: inherit;
+}
+
+/* KONTAK */
+.kontak-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.kontak-item {
+    background: var(--pucat);
+    padding: 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.kontak-icon {
+    background: var(--biru);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* BOTTOM BAR */
+.bottom-bar {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    background: white;
+    border: 2px solid var(--gelap);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.bottom-bar > div {
+    padding: 15px;
+    border-right: 1px solid var(--gelap);
+}
+
+.bottom-bar h4 {
+    color: var(--biru);
+}
+
+.bottom-bar a {
+    display: block;
+    font-size: 13px;
+}
+
+/* FOOTER BARU */
+footer {
+    background: var(--gelap);
+    color: white;
+    padding: 50px 8% 20px;
+    margin-top: 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1.2fr;
+    gap: 35px;
+    max-width: 1200px;
+    margin: auto;
+    text-align: left;
+}
+
+.footer-grid > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-grid h3 {
+    font-size: 19px;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.footer-grid p {
+    font-size: 14px;
+    color: #dce9ff;
+    margin-bottom: 9px;
+}
+
+.footer-grid a {
+    color: #dce9ff;
+    font-size: 14px;
+    margin-bottom: 9px;
+    transition: .3s;
+}
+
+.footer-grid a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.footer-map iframe {
+    width: 100%;
+    height: 190px;
+    border: 0;
+    border-radius: 10px;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 35px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #ffffff44;
+    text-align: center;
+    font-size: 13px;
+    color: #dce9ff;
+}
+
+.footer-bottom p {
+    margin-bottom: 5px;
+}
+
+/* MODAL DAN FOTO */
+.modal,
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: #000b;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.active,
+.lightbox.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 28px;
+    border-radius: 14px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    border: none;
+    background: none;
+    font-size: 26px;
+}
+
+.lightbox {
+    flex-direction: column;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 75vh;
+    border-radius: 12px;
+}
+
+/* PORTAL */
+#portal {
+    display: none;
+    background: var(--abu);
+    min-height: 100vh;
+    width: 100%;
+}
+
+.portal-header {
+    background: var(--gelap);
+    color: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.portal-layout {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    min-height: 85vh;
+}
+
+.sidebar {
+    background: white;
+    padding: 20px 12px;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 8px;
+    border: none;
+    border-radius: 7px;
+    background: white;
+    color: var(--biru);
+    font-weight: bold;
+    text-align: left;
+}
+
+.sidebar button.active,
+.sidebar button:hover {
+    background: var(--pucat);
+}
+
+.portal-main {
+    padding: 25px;
+    overflow-x: auto;
+}
+
+.portal-page {
+    display: none;
+}
+
+.portal-page.active {
+    display: block;
+}
+
+.portal-page h2 {
+    color: var(--biru);
+    margin-bottom: 15px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    min-width: 550px;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #e2e7ef;
+    padding: 12px;
+    text-align: left;
+}
+
+.data-table th {
+    background: var(--biru);
+    color: white;
+}
+
+.pengumuman-item {
+    background: white;
+    padding: 17px;
+    border-left: 4px solid var(--biru);
+    margin-bottom: 12px;
+    border-radius: 8px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 18px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .grid3,
+    .grid4,
+    .fasilitas-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .bottom-bar {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .sambutan,
+    .kontak-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2,1fr);
+        gap: 30px;
+    }
+}
+
+@media(max-width:600px) {
+    section {
+        padding: 30px 6%;
+    }
+
+    .grid2,
+    .grid3,
+    .grid4,
+    .fasilitas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        height: 360px;
+        margin: 12px 4%;
+    }
+
+    .slide-overlay h1,
+    .slide-overlay h3 {
+        font-size: 25px;
+    }
+
+    .navbar {
+        padding: 10px 12px;
+    }
+
+    .logo {
+        font-size: 14px;
+    }
+
+    .portal-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: flex;
+        overflow-x: auto;
+    }
+
+    .sidebar button {
+        min-width: 150px;
+    }
+
+    .bottom-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .bottom-bar > div {
+        border-right: none;
+        border-bottom: 1px solid var(--gelap);
+    }
+
+    .struktur-box {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .struktur-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    footer {
+        padding: 35px 6% 20px;
+    }
+
+    .footer-map iframe {
+        height: 200px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="website">
+
+<header>
+<nav class="navbar">
+
+<a href="#" class="logo" onclick="showPage('home')">
+<img src="Logo.png" alt="Logo">
+<span>ANDENARA ACADEMY</span>
+</a>
+
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+<div class="nav-links" id="navLinks">
+<a href="#" onclick="showPage('home')">Beranda</a>
+<a href="#" onclick="showPage('profil')">Profil</a>
+<a href="#" onclick="showPage('akademik')">Akademik</a>
+<a href="#" onclick="showPage('kesiswaan')">Kesiswaan</a>
+<a href="#" onclick="showPage('ppdb')">PPDB</a>
+<a href="#" onclick="showPage('berita')">Berita</a>
+<a href="#" onclick="showPage('kontak')">Kontak</a>
+<button class="btn" onclick="bukaLogin()">Login Portal</button>
+</div>
+
+</nav>
+</header>
+
+<main>
+
+<!-- BERANDA -->
+<section id="page-home" class="page active">
+
+<section class="hero">
+
+<article class="slide active">
+<img src="Presata.webp" alt="Prestasi">
+<div class="slide-overlay">
+<div>
+<h1>Prestasi Siswa</h1>
+<p>Juara 1 Olimpiade Sains Tingkat Bandung Barat 2025.</p>
+<button class="btn" onclick="showPage('berita')">Lihat Prestasi</button>
+</div>
+</div>
+</article>
+
+<article class="slide">
+<img src="5.jpg" alt="Fasilitas">
+<div class="slide-overlay">
+<div>
+<h3>Fasilitas Sekolah</h3>
+<p>Laboratorium komputer, perpustakaan, lapangan, dan aula.</p>
+<button class="btn" onclick="showPage('fasilitas')">Jelajahi Fasilitas</button>
+</div>
+</div>
+</article>
+
+<article class="slide">
+<img src="Gs.jpg" alt="Gedung">
+<div class="slide-overlay">
+<div>
+<h3>Gedung Sekolah</h3>
+<p>Lingkungan belajar yang nyaman, asri, dan aman.</p>
+<button class="btn" onclick="showPage('profil')">Lihat Profil</button>
+</div>
+</div>
+</article>
+
+<article class="slide">
+<img src="Br.jpg" alt="PPDB">
+<div class="slide-overlay">
+<div>
+<h3>Selamat Datang di Andenara Academy</h3>
+<p>Membangun generasi cerdas, berkarakter, kreatif, dan berprestasi.</p>
+<button class="btn" onclick="showPage('ppdb')">Daftar PPDB</button>
+</div>
+</div>
+</article>
+
+<button class="arrow prev" onclick="gantiSlide(-1)">‹</button>
+<button class="arrow next" onclick="gantiSlide(1)">›</button>
+
+<div class="slider-nav">
+<button class="dot active" onclick="keSlide(0)"></button>
+<button class="dot" onclick="keSlide(1)"></button>
+<button class="dot" onclick="keSlide(2)"></button>
+<button class="dot" onclick="keSlide(3)"></button>
+</div>
+
+</section>
+
+<!-- SAMBUTAN -->
+<section>
+<div class="container sambutan">
+
+<div style="text-align:center">
+<img src="Cha Eun Woo.jpeg"
+class="kepala-img"
+alt="Kepala Sekolah"
+onclick="bukaFoto(this.src,this.alt)">
+
+<p><b>Kepala Sekolah</b></p>
+</div>
+
+<article>
+<h2 style="color:var(--biru)">Sambutan Kepala Sekolah</h2>
+
+<p>
+Selamat datang di website resmi Andenara Academy.
+Kami berkomitmen memberikan pendidikan berkualitas
+dengan mengembangkan kemampuan akademik, kreativitas,
+serta karakter setiap peserta didik.
+</p>
+
+<br>
+
+<p>
+Mari bersama-sama menciptakan lingkungan belajar
+yang nyaman, positif, dan penuh prestasi.
+</p>
+
+<br>
+
+<b>Dr. Elvano Praditya, M.Pd.</b>
+<p>Kepala Sekolah</p>
+
+<button class="btn" onclick="showPage('profil')">
+Lihat Profil Sekolah
+</button>
+</article>
+
+</div>
+</section>
+
+<!-- BERITA TERBARU -->
+<section>
+<div class="container">
+
+<div class="section-title">
+<h2>Berita Terbaru</h2>
+<p>Informasi terbaru Andenara Academy</p>
+</div>
+
+<div class="grid3">
+
+<article class="card berita-card"
+onclick="detailBerita('Kegiatan Belajar Mengajar','Siswa mengikuti kegiatan pembelajaran dengan penuh semangat dan aktif.')">
+
+<img src="Belajar.jpg" alt="Kegiatan Belajar">
+
+<div class="berita-content">
+<h3>Kegiatan Belajar Mengajar</h3>
+<p>Siswa mengikuti pembelajaran dengan penuh semangat.</p>
+<button class="btn">Baca Selengkapnya</button>
+</div>
+</article>
+
+<article class="card berita-card"
+onclick="detailBerita('Prestasi Siswa','Siswa mengembangkan bakat melalui berbagai perlombaan.')">
+
+<img src="Presata.webp" alt="Prestasi">
+
+<div class="berita-content">
+<h3>Prestasi Siswa</h3>
+<p>Mengembangkan bakat melalui berbagai perlombaan.</p>
+<button class="btn">Baca Selengkapnya</button>
+</div>
+</article>
+
+<article class="card berita-card"
+onclick="showPage('ppdb')">
+
+<img src="Penerimaan siswa.jpg" alt="PPDB">
+
+<div class="berita-content">
+<h3>Penerimaan Siswa Baru</h3>
+<p>Informasi pendaftaran peserta didik baru.</p>
+<button class="btn">Daftar Sekarang</button>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- INFORMASI BERANDA -->
+<section>
+<div class="container">
+
+<div class="card">
+<h2 style="color:var(--biru)">Kegiatan Mendatang</h2>
+<p>
+15 November: Lomba Futsal Antar Kelas<br>
+20 November: Class Meeting<br>
+25 November: Peringatan Hari Guru<br>
+1 Desember: Bakti Sosial
+</p>
+<button class="btn" onclick="showPage('kesiswaan')">Lihat Kegiatan</button>
+</div>
+
+<br>
+
+<div class="card">
+<h2 style="color:var(--biru)">Ekstrakurikuler</h2>
+<p>
+Pramuka • Basket • Futsal • Paskibra • PMR •
+English Club • Seni Tari • Rohis • OSIS
+</p>
+<button class="btn" onclick="showPage('kesiswaan')">Lihat Ekstrakurikuler</button>
+</div>
+
+<br>
+
+<div class="card">
+<h2 style="color:var(--biru)">Kegiatan OSIS</h2>
+<p>LDKS, Class Meeting, Pemilihan Ketua OSIS, dan Bakti Sosial.</p>
+<button class="btn" onclick="showPage('kesiswaan')">Lihat Kegiatan OSIS</button>
+</div>
+
+<div class="bottom-bar">
+
+<div>
+<h4>Tautan Penting</h4>
+<a href="https://www.kemendikdasmen.go.id/" target="_blank">Kemendikdasmen</a>
+<a href="#" onclick="showPage('ppdb')">Portal PPDB</a>
+<a href="#" onclick="alert('E-Learning belum tersedia.')">E-Learning</a>
+</div>
+
+<div onclick="showPage('kesiswaan')" style="cursor:pointer">
+<h4>Kalender OSIS</h4>
+<p>Senin: Upacara</p>
+<p>Jumat: Jumat Bersih</p>
+<p>Sabtu: Ekstrakurikuler</p>
+</div>
+
+<div onclick="showPage('kontak')" style="cursor:pointer">
+<h4>Alamat & Kontak</h4>
+<p>Lembang, Bandung Barat</p>
+<p>(022) 1234-5678</p>
+<p>info@AndenaraAcademy.sch.id</p>
+</div>
+
+<div onclick="showPage('kontak')" style="cursor:pointer">
+<h4>Peta Lokasi</h4>
+<p>📍 Lihat lokasi sekolah</p>
+<button class="btn">Buka Peta →</button>
+</div>
+
+</div>
+</div>
+</section>
+
+</section>
+
+<!-- PROFIL -->
+<section id="page-profil" class="page">
+<div class="container">
+
+<div class="section-title">
+<h2>Profil Sekolah</h2>
+<p>Mengenal Andenara Academy</p>
+</div>
+
+<button class="btn" onclick="showPage('home')">Kembali</button>
+<br><br>
+
+<div class="grid2">
+
+<article class="card">
+<h3 style="color:var(--biru)">Visi dan Misi</h3>
+<br>
+
+<b>Visi:</b>
+<p>
+Menjadi sekolah unggul yang menghasilkan generasi
+cerdas, berkarakter, kreatif, dan berprestasi.
+</p>
+
+<br>
+
+<b>Misi:</b>
+<ul style="padding-left:20px;list-style:disc">
+<li>Meningkatkan kualitas pembelajaran.</li>
+<li>Mengembangkan potensi peserta didik.</li>
+<li>Membentuk karakter disiplin dan tanggung jawab.</li>
+<li>Mendorong prestasi akademik dan nonakademik.</li>
+</ul>
+</article>
+
+<article class="card">
+<h3 style="color:var(--biru)">Tentang Sekolah</h3>
+<p>
+Andenara Academy merupakan sekolah yang mengutamakan
+pendidikan berkualitas dan pengembangan karakter peserta didik.
+</p>
+
+<br>
+<p><b>NPSN:</b> 20260001</p>
+<p><b>Akreditasi:</b> A</p>
+<p><b>Alamat:</b> Lembang, Bandung Barat, Jawa Barat.</p>
+</article>
+
+</div>
+
+<br>
+
+<div class="section-title" style="text-align:center">
+<h2>Struktur Organisasi</h2>
+<p>Susunan organisasi Andenara Academy</p>
+</div>
+
+<div class="struktur-wrap">
+
+<div class="struktur-row">
+<div class="struktur-box utama">
+<img src="Sunghoon2.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="Ketua Yayasan">
+<b>Dr. Raka Gyanendra, M.M.</b>
+<p>Ketua Yayasan</p>
+</div>
+</div>
+
+<div class="struktur-row">
+<div class="struktur-box utama">
+<img src="Cha Eun Woo.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="Kepala Sekolah">
+<b>Dr. Elvano Praditya, M.Pd.</b>
+<p>Kepala Sekolah</p>
+</div>
+</div>
+
+<div class="struktur-row">
+
+<div class="struktur-box">
+<img src="Lee.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="Kurikulum">
+<b>Kael Bimantara, M.Pd.</b>
+<p>Wakil Kepala Sekolah<br>Bidang Kurikulum</p>
+</div>
+
+<div class="struktur-box">
+<img src="Siswa.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="Kesiswaan">
+<b>Kirana Ayundari, S.Pd.</b>
+<p>Wakil Kepala Sekolah<br>Bidang Kesiswaan</p>
+</div>
+
+</div>
+
+<div class="struktur-row">
+
+<div class="struktur-box">
+<img src="Dilraba.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="Koordinator">
+<b>Zahra Aurelia, S.Pd.</b>
+<p>Koordinator Guru</p>
+</div>
+
+<div class="struktur-box">
+<img src="Tu.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="TU">
+<b>Rafa Pradana, S.E.</b>
+<p>Kepala Tata Usaha</p>
+</div>
+
+<div class="struktur-box">
+<img src="Ganteng.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="Sarpras">
+<b>Arka Wijaya, S.Pd.</b>
+<p>Kepala Sarana<br>Prasarana</p>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- AKADEMIK -->
+<section id="page-akademik" class="page">
+<div class="container">
+
+<div class="section-title">
+<h2>Akademik</h2>
+<p>Kurikulum dan tenaga pendidik</p>
+</div>
+
+<button class="btn" onclick="showPage('home')">Kembali</button>
+<br><br>
+
+<div class="card">
+<h3 style="color:var(--biru)">Kurikulum Merdeka</h3>
+<p>Pembelajaran berbasis proyek, literasi, numerasi, dan penguatan karakter.</p>
+<br>
+<p>• Fase E: Kelas X</p>
+<p>• Fase F: Kelas XI dan XII</p>
+<p>• Projek Penguatan Profil Pelajar Pancasila</p>
+</div>
+
+<br>
+
+<div class="section-title">
+<h2>Daftar Guru</h2>
+<p>Tenaga pendidik Andenara Academy</p>
+</div>
+
+<div class="grid4" id="daftarGuru"></div>
+
+</div>
+</section>
+
+<!-- KESISWAAN -->
+<section id="page-kesiswaan" class="page">
+<div class="container">
+
+<div class="section-title">
+<h2>Kesiswaan</h2>
+<p>Kegiatan, ekstrakurikuler, dan organisasi siswa</p>
+</div>
+
+<button class="btn" onclick="showPage('home')">Kembali</button>
+<br><br>
+
+<div class="grid2">
+
+<div class="card">
+<h3>Kegiatan Mendatang</h3>
+<p>15 November: Lomba Futsal</p>
+<p>20 November: Class Meeting</p>
+<p>25 November: Hari Guru</p>
+<p>1 Desember: Bakti Sosial</p>
+</div>
+
+<div class="card">
+<h3>Kalender OSIS</h3>
+<p>Senin: Upacara Bendera</p>
+<p>Jumat: Jumat Bersih</p>
+<p>Sabtu: Ekstrakurikuler</p>
+</div>
+
+</div>
+
+<br>
+
+<div class="section-title">
+<h2>Ekstrakurikuler</h2>
+<p>Pilih kegiatan sesuai minat dan bakat</p>
+</div>
+
+<div class="grid3">
+
+<article class="card ekstra-card">
+<img src="Renag.jpg" alt="Renang">
+<div class="ekstra-content">
+<span class="tag">OLAHRAGA</span>
+<h3>Renang</h3>
+<p>Senin dan Rabu, 15.30</p>
+<button class="btn" onclick="detailEkstra('Renang','Senin dan Rabu, 15.30')">Lihat Jadwal</button>
+</div>
+</article>
+
+<article class="card ekstra-card">
+<img src="Basket.jpg" alt="Basket">
+<div class="ekstra-content">
+<span class="tag">OLAHRAGA</span>
+<h3>Basket</h3>
+<p>Selasa dan Jumat, 15.30</p>
+<button class="btn" onclick="detailEkstra('Basket','Selasa dan Jumat, 15.30')">Lihat Jadwal</button>
+</div>
+</article>
+
+<article class="card ekstra-card">
+<img src="Futsal.jpg" alt="Futsal">
+<div class="ekstra-content">
+<span class="tag">OLAHRAGA</span>
+<h3>Futsal</h3>
+<p>Selasa dan Kamis, 16.00</p>
+<button class="btn" onclick="detailEkstra('Futsal','Selasa dan Kamis, 16.00')">Lihat Jadwal</button>
+</div>
+</article>
+
+<article class="card ekstra-card">
+<img src="Kali.jpg" alt="Voli">
+<div class="ekstra-content">
+<span class="tag">OLAHRAGA</span>
+<h3>Voli</h3>
+<p>Selasa dan Rabu, 15.30</p>
+<button class="btn" onclick="detailEkstra('Voli','Selasa dan Rabu, 15.30')">Lihat Jadwal</button>
+</div>
+</article>
+
+<article class="card ekstra-card">
+<img src="Tangkis.jpg" alt="Bulu Tangkis">
+<div class="ekstra-content">
+<span class="tag">OLAHRAGA</span>
+<h3>Bulu Tangkis</h3>
+<p>Senin dan Selasa, 15.30</p>
+<button class="btn" onclick="detailEkstra('Bulu Tangkis','Senin dan Selasa, 15.30')">Lihat Jadwal</button>
+</div>
+</article>
+
+<article class="card ekstra-card">
+<img src="Komputer.jpg" alt="Komputer">
+<div class="ekstra-content">
+<span class="tag">TEKNOLOGI</span>
+<h3>Komputer</h3>
+<p>Selasa dan Rabu, 15.30</p>
+<button class="btn" onclick="detailEkstra('Komputer','Selasa dan Rabu, 15.30')">Lihat Jadwal</button>
+</div>
+</article>
+
+</div>
+
+<br>
+
+<div class="card">
+<h3>Kegiatan OSIS</h3>
+<p>LDKS, Class Meeting, Pemilihan Ketua OSIS, dan Bakti Sosial.</p>
+</div>
+
+</div>
+</section>
+
+<!-- PPDB -->
+<section id="page-ppdb" class="page">
+<div class="ppdb">
+<div class="container">
+
+<div class="section-title">
+<h2>Penerimaan Peserta Didik Baru</h2>
+<p>PPDB Andenara Academy</p>
+</div>
+
+<button class="btn btn-outline" onclick="showPage('home')">Kembali</button>
+<br><br>
+
+<div class="alur">
+
+<div class="alur-step">
+<b>1</b>
+<h4>Pendaftaran</h4>
+<p>Isi formulir online.</p>
+</div>
+
+<div class="alur-step">
+<b>2</b>
+<h4>Verifikasi</h4>
+<p>Pemeriksaan berkas.</p>
+</div>
+
+<div class="alur-step">
+<b>3</b>
+<h4>Pengumuman</h4>
+<p>Hasil seleksi.</p>
+</div>
+
+</div>
+
+<div class="form-box">
+
+<h3 style="color:var(--biru);text-align:center">Persyaratan PPDB</h3>
+
+<p style="text-align:center">
+Persiapkan dokumen pendaftaran sebelum mengisi formulir.
+</p>
+
+<ul style="padding:15px 20px;list-style:disc">
+<li>Fotokopi ijazah / SKL.</li>
+<li>Kartu Keluarga.</li>
+<li>Akta kelahiran.</li>
+<li>Pas foto terbaru.</li>
+<li>Dokumen pendukung sesuai jalur.</li>
+</ul>
+
+<div style="text-align:center;margin:10px 0 20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+
+<a class="btn" href="dokumen/syarat-ppdb.pdf" download>
+📄 Download PDF Syarat PPDB
+</a>
+
+<a class="btn" href="dokumen/formulir-ppdb.pdf" download>
+📝 Download Formulir PPDB
+</a>
+
+</div>
+
+<br>
+
+<h3 style="color:var(--biru);text-align:center">Formulir Pendaftaran</h3>
+
+<form id="formPPDB">
+
+<div class="form-group">
+<label>Nama Lengkap *</label>
+<input id="namaPPDB" required>
+</div>
+
+<div class="form-group">
+<label>Email *</label>
+<input id="emailPPDB" type="email" required>
+</div>
+
+<div class="form-group">
+<label>NISN *</label>
+<input id="nisnPPDB" pattern="[0-9]{10}" maxlength="10" required placeholder="10 digit NISN">
+</div>
+
+<div class="form-group">
+<label>Asal Sekolah *</label>
+<input id="asalPPDB" required>
+</div>
+
+<div class="form-group">
+<label>Nomor HP *</label>
+<input id="hpPPDB" type="tel" required>
+</div>
+
+<div class="form-group">
+<label>Jalur Pendaftaran</label>
+<select id="jalurPPDB">
+<option>Zonasi</option>
+<option>Prestasi</option>
+<option>Afirmasi</option>
+<option>Perpindahan Orang Tua</option>
+</select>
+</div>
+
+<button class="btn" style="width:100%" type="submit">
+Kirim Pendaftaran
+</button>
+
+<p id="ppdbHasil" style="margin-top:15px;color:green;text-align:center"></p>
+
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FASILITAS -->
+<section id="page-fasilitas" class="page">
+<div class="container">
+
+<div class="section-title">
+<h2>Fasilitas Sekolah</h2>
+<p>Sarana dan prasarana Andenara Academy</p>
+</div>
+
+<button class="btn" onclick="showPage('home')">Kembali</button>
+<br><br>
+
+<div class="fasilitas-grid">
+
+<article class="fasilitas-card">
+<img src="Lab komputer.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="Lab Komputer">
+<div class="fasilitas-content">
+<span class="tag">AKADEMIK</span>
+<h3>💻 Laboratorium Komputer</h3>
+<p>30 unit komputer dan akses internet cepat.</p>
+<button class="btn" onclick="detailFasilitas('Laboratorium Komputer','30 unit komputer, internet cepat, AC. Lokasi: Gedung B Lantai 2')">Lihat Detail →</button>
+</div>
+</article>
+
+<article class="fasilitas-card">
+<img src="Perpustakaan.jpg" onclick="bukaFoto(this.src,this.alt)" alt="Perpustakaan">
+<div class="fasilitas-content">
+<span class="tag">AKADEMIK</span>
+<h3>📚 Perpustakaan</h3>
+<p>2000+ koleksi buku dan ruang baca yang nyaman.</p>
+<button class="btn" onclick="detailFasilitas('Perpustakaan','2000+ buku, ruang baca nyaman. Lokasi: Gedung A Lantai 1')">Lihat Detail →</button>
+</div>
+</article>
+
+<article class="fasilitas-card">
+<img src="Masjid.jpg" onclick="bukaFoto(this.src,this.alt)" alt="Masjid">
+<div class="fasilitas-content">
+<span class="tag">KEAGAMAAN</span>
+<h3>Masjid</h3>
+<p>Sarana ibadah, kajian keagamaan, dan pembinaan karakter.</p>
+<button class="btn" onclick="detailFasilitas('Masjid','Sarana ibadah dan kajian keagamaan.')">Lihat Detail →</button>
+</div>
+</article>
+
+<article class="fasilitas-card">
+<img src="Lapang.jpg" onclick="bukaFoto(this.src,this.alt)" alt="Lapangan">
+<div class="fasilitas-content">
+<span class="tag">OLAHRAGA</span>
+<h3>⚽ Lapangan Sekolah</h3>
+<p>Lapangan futsal, basket, dan upacara.</p>
+<button class="btn" onclick="detailFasilitas('Lapangan Sekolah','Lapangan Futsal, Basket, Upacara. Lokasi: Area Tengah')">Lihat Detail →</button>
+</div>
+</article>
+
+<article class="fasilitas-card">
+<img src="Aula.jpg" onclick="bukaFoto(this.src,this.alt)" alt="Aula">
+<div class="fasilitas-content">
+<span class="tag">KEGIATAN</span>
+<h3>🎭 Aula Sekolah</h3>
+<p>Kapasitas 300 orang untuk kegiatan dan seminar.</p>
+<button class="btn" onclick="detailFasilitas('Aula Sekolah','Kapasitas 300 orang. Lokasi: Gedung Utama')">Lihat Detail →</button>
+</div>
+</article>
+
+<article class="fasilitas-card">
+<img src="Parkiran.jpeg" onclick="bukaFoto(this.src,this.alt)" alt="Parkiran">
+<div class="fasilitas-content">
+<span class="tag">FASILITAS UMUM</span>
+<h3>🅿️ Parkiran Sekolah</h3>
+<p>Area parkir yang luas, aman, dan tertata.</p>
+<button class="btn" onclick="detailFasilitas('Parkiran Sekolah','Area parkir luas dan aman. Lokasi: Depan Gerbang Utama')">Lihat Detail →</button>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- BERITA -->
+<section id="page-berita" class="page">
+<div class="container">
+
+<div class="section-title">
+<h2>Berita Sekolah</h2>
+<p>Informasi dan kegiatan terbaru sekolah</p>
+</div>
+
+<button class="btn" onclick="showPage('home')">Kembali</button>
+<br><br>
+
+<div class="grid3">
+
+<article class="card berita-card"
+onclick="detailBerita('Kegiatan Belajar Mengajar','Kegiatan pembelajaran berlangsung aktif dan menyenangkan.')">
+<img src="Belajar.jpg" alt="Belajar">
+<div class="berita-content">
+<h3>Kegiatan Belajar Mengajar</h3>
+<p>Pembelajaran aktif dan menyenangkan.</p>
+</div>
+</article>
+
+<article class="card berita-card"
+onclick="detailBerita('Prestasi Siswa','Siswa berhasil mengembangkan bakat dan meraih prestasi.')">
+<img src="Presata.webp" alt="Prestasi">
+<div class="berita-content">
+<h3>Prestasi Siswa</h3>
+<p>Pengembangan bakat dan prestasi.</p>
+</div>
+</article>
+
+<article class="card berita-card"
+onclick="showPage('ppdb')">
+<img src="Penerimaan siswa.jpg" alt="PPDB">
+<div class="berita-content">
+<h3>Penerimaan Siswa Baru</h3>
+<p>Informasi pendaftaran peserta didik baru.</p>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- KONTAK -->
+<section id="page-kontak" class="page">
+<div class="container">
+
+<div class="section-title">
+<h2>Kontak Sekolah</h2>
+<p>Hubungi Andenara Academy</p>
+</div>
+
+<div class="kontak-grid">
+
+<div>
+
+<div class="kontak-item">
+<div class="kontak-icon">📍</div>
+<div>
+<b>Alamat Sekolah</b>
+<p>Lembang, Bandung Barat, Jawa Barat.</p>
+</div>
+</div>
+
+<div class="kontak-item">
+<div class="kontak-icon">📞</div>
+<div>
+<b>Telepon / WhatsApp</b>
+<p>(022) 1234-5678</p>
+<p>0812-3456-7890</p>
+</div>
+</div>
+
+<div class="kontak-item">
+<div class="kontak-icon">✉️</div>
+<div>
+<b>Email</b>
+<p>info@AndenaraAcademy.sch.id</p>
+</div>
+</div>
+
+<div class="kontak-item">
+<div class="kontak-icon">🕐</div>
+<div>
+<b>Jam Layanan</b>
+<p>Senin–Jumat: 07.00–15.00</p>
+<p>Sabtu: 07.00–12.00</p>
+</div>
+</div>
+
+<a class="btn" href="https://wa.me/6281234567890" target="_blank">
+Chat WhatsApp
+</a>
+
+</div>
+
+<div class="form-box" style="max-width:100%">
+
+<h3 style="color:var(--biru)">Kirim Pesan</h3>
+
+<form id="formKontak">
+
+<div class="form-group">
+<label>Nama</label>
+<input id="kontakNama" required>
+</div>
+
+<div class="form-group">
+<label>Nomor HP / Email</label>
+<input id="kontakHP" required>
+</div>
+
+<div class="form-group">
+<label>Pesan</label>
+<textarea id="kontakPesan" rows="4" required></textarea>
+</div>
+
+<button class="btn" style="width:100%">
+Kirim ke WhatsApp
+</button>
+
+</form>
+</div>
+
+</div>
+</div>
+</section>
+
+</main>
+</div>
+
+<!-- FOOTER BARU -->
+<footer id="footerUtama">
+
+<div class="footer-grid">
+
+<!-- IDENTITAS SEKOLAH -->
+<div>
+
+<div class="footer-logo">
+<img src="Logo.png" alt="Logo Andenara">
+<h3>ANDENARA ACADEMY</h3>
+</div>
+
+<p>
+Membangun generasi cerdas, kreatif,
+berkarakter, dan berprestasi.
+</p>
+
+<p>📍 Lembang, Bandung Barat, Jawa Barat</p>
+<p>📞 (022) 1234-5678</p>
+<p>📱 0812-3456-7890</p>
+<p>✉️ info@AndenaraAcademy.sch.id</p>
+<p>🕐 Senin–Jumat: 07.00–15.00</p>
+<p>Sabtu: 07.00–12.00</p>
+
+</div>
+
+<!-- MENU UTAMA -->
+<div>
+
+<h3>Menu Utama</h3>
+
+<a href="#" onclick="showPage('home')">Beranda</a>
+<a href="#" onclick="showPage('profil')">Profil Sekolah</a>
+<a href="#" onclick="showPage('akademik')">Akademik</a>
+<a href="#" onclick="showPage('kesiswaan')">Kesiswaan</a>
+<a href="#" onclick="showPage('fasilitas')">Fasilitas</a>
+<a href="#" onclick="showPage('berita')">Berita</a>
+<a href="#" onclick="showPage('ppdb')">PPDB</a>
+<a href="#" onclick="showPage('kontak')">Kontak</a>
+
+</div>
+
+<!-- PETA LOKASI -->
+<div class="footer-map">
+
+<h3>Lokasi Sekolah</h3>
+
+<p>
+Kunjungi Andenara Academy melalui peta lokasi berikut.
+</p>
+
+<iframe
+src="https://maps.google.com/maps?q=Lembang%2C%20Bandung%20Barat%2C%20Indonesia&output=embed"
+loading="lazy"
+allowfullscreen>
+</iframe>
+
+<br>
+
+<a href="https://www.google.com/maps/search/?api=1&query=Lembang+Bandung+Barat"
+target="_blank">
+📍 Buka Google Maps →
+</a>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+
+<p>
+© 2026 Andenara Academy. All Rights Reserved.
+</p>
+
+<p>
+Website Resmi Andenara Academy
+</p>
+
+</div>
+
+</footer>
+
+<!-- LIGHTBOX FOTO -->
+<div class="lightbox" id="lightbox" onclick="tutupLightbox()">
+
+<img id="lightboxImg" src="" alt="Foto">
+
+<p id="lightboxCaption" style="color:white;margin-top:12px"></p>
+
+<p style="color:#ddd;font-size:12px">
+Klik di luar foto untuk menutup
+</p>
+
+</div>
+
+<!-- MODAL LOGIN -->
+<div class="modal" id="loginModal" onclick="if(event.target===this)tutupLogin()">
+
+<div class="modal-content">
+
+<button class="close" onclick="tutupLogin()">×</button>
+
+<h2 style="color:var(--biru);text-align:center">
+Portal Akademik
+</h2>
+
+<br>
+
+<form id="formLogin">
+
+<div class="form-group">
+<label>Username</label>
+<input id="username" required>
+</div>
+
+<div class="form-group">
+<label>Password</label>
+<input id="password" type="password" required>
+</div>
+
+<button class="btn" style="width:100%">
+Login
+</button>
+
+</form>
+
+<div style="background:var(--pucat);padding:12px;margin-top:15px;border-radius:8px;font-size:13px">
+Username: <b>siswa</b><br>
+Password: <b>siswa123</b>
+</div>
+
+</div>
+</div>
+
+<!-- PORTAL AKADEMIK -->
+<div id="portal">
+
+<div class="portal-header">
+
+<div>
+<h2>ANDENARA ACADEMY</h2>
+<p>Portal Akademik</p>
+</div>
+
+<button class="btn btn-outline" onclick="logout()">Logout</button>
+
+</div>
+
+<div class="portal-layout">
+
+<aside class="sidebar">
+
+<button class="active" onclick="bukaHalaman('dashboard',this)">
+🏠 Dashboard
+</button>
+
+<button onclick="bukaHalaman('jadwal',this)">
+📅 Jadwal Pelajaran
+</button>
+
+<button onclick="bukaHalaman('nilai',this)">
+📊 Nilai Rapor
+</button>
+
+<button onclick="bukaHalaman('absensi',this)">
+✅ Absensi
+</button>
+
+<button onclick="bukaHalaman('pengumuman',this)">
+📢 Pengumuman
+</button>
+
+</aside>
+
+<main class="portal-main">
+
+<!-- DASHBOARD -->
+<div class="portal-page active" id="dashboard">
+
+<h2>Dashboard Siswa</h2>
+
+<p>Selamat datang di Portal Akademik Andenara Academy.</p>
+
+<br>
+
+<div class="grid3">
+
+<div class="card" onclick="bukaHalaman('jadwal',document.querySelectorAll('.sidebar button')[1])">
+<h3>📅 Jadwal</h3>
+<p>Lihat jadwal pelajaran.</p>
+</div>
+
+<div class="card" onclick="bukaHalaman('nilai',document.querySelectorAll('.sidebar button')[2])">
+<h3>📊 Nilai</h3>
+<p>Rata-rata: 88,5</p>
+</div>
+
+<div class="card" onclick="bukaHalaman('absensi',document.querySelectorAll('.sidebar button')[3])">
+<h3>✅ Kehadiran</h3>
+<p>98%</p>
+</div>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h3>Informasi Siswa</h3>
+
+<p>Nama: Siswa Nusantara</p>
+<p>NIS: 2026001</p>
+<p>Kelas: XII RPL 1</p>
+<p>Wali Kelas: Keira Amara, S.Pd.</p>
+<p>Status: Aktif</p>
+
+</div>
+
+</div>
+
+<!-- JADWAL -->
+<div class="portal-page" id="jadwal">
+
+<h2>Jadwal Pelajaran</h2>
+
+<table class="data-table">
+
+<tr>
+<th>Hari</th>
+<th>Jam</th>
+<th>Mata Pelajaran</th>
+<th>Guru</th>
+</tr>
+
+<tr>
+<td>Senin</td>
+<td>07.00–08.30</td>
+<td>Matematika</td>
+<td>Bara Mahesa</td>
+</tr>
+
+<tr>
+<td>Senin</td>
+<td>08.30–10.00</td>
+<td>Biologi</td>
+<td>Salsabila Zahra</td>
+</tr>
+
+<tr>
+<td>Selasa</td>
+<td>07.00–08.30</td>
+<td>Bahasa Inggris</td>
+<td>Nara Ayudia</td>
+</tr>
+
+<tr>
+<td>Selasa</td>
+<td>08.30–10.00</td>
+<td>Fisika</td>
+<td>Revan Praditya</td>
+</tr>
+
+<tr>
+<td>Rabu</td>
+<td>07.00–08.30</td>
+<td>Informatika</td>
+<td>Daffa Arka</td>
+</tr>
+
+<tr>
+<td>Kamis</td>
+<td>07.00–08.30</td>
+<td>Bahasa Indonesia</td>
+<td>Salsabila Zahra</td>
+</tr>
+
+<tr>
+<td>Jumat</td>
+<td>07.00–08.30</td>
+<td>PAI</td>
+<td>Aisyah Kirana</td>
+</tr>
+
+</table>
+</div>
+
+<!-- NILAI -->
+<div class="portal-page" id="nilai">
+
+<h2>Nilai Rapor Semester Ganjil</h2>
+
+<table class="data-table">
+
+<tr>
+<th>Mata Pelajaran</th>
+<th>Pengetahuan</th>
+<th>Keterampilan</th>
+<th>Predikat</th>
+</tr>
+
+<tr>
+<td>Matematika</td>
+<td>88</td>
+<td>90</td>
+<td>A</td>
+</tr>
+
+<tr>
+<td>Bahasa Indonesia</td>
+<td>92</td>
+<td>94</td>
+<td>A</td>
+</tr>
+
+<tr>
+<td>Bahasa Inggris</td>
+<td>85</td>
+<td>88</td>
+<td>A</td>
+</tr>
+
+<tr>
+<td>Informatika</td>
+<td>90</td>
+<td>95</td>
+<td>A</td>
+</tr>
+
+<tr>
+<td>Fisika</td>
+<td>84</td>
+<td>86</td>
+<td>A</td>
+</tr>
+
+<tr>
+<td>Olahraga</td>
+<td>87</td>
+<td>89</td>
+<td>A</td>
+</tr>
+
+</table>
+
+<br>
+
+<b>Nilai rata-rata: 88,5</b>
+
+</div>
+
+<!-- ABSENSI -->
+<div class="portal-page" id="absensi">
+
+<h2>Absensi Siswa</h2>
+
+<table class="data-table">
+
+<tr>
+<th>Tanggal</th>
+<th>Status</th>
+<th>Keterangan</th>
+</tr>
+
+<tr>
+<td>03 November</td>
+<td>Hadir</td>
+<td>-</td>
+</tr>
+
+<tr>
+<td>04 November</td>
+<td>Hadir</td>
+<td>-</td>
+</tr>
+
+<tr>
+<td>05 November</td>
+<td>Izin</td>
+<td>Sakit</td>
+</tr>
+
+<tr>
+<td>06 November</td>
+<td>Hadir</td>
+<td>-</td>
+</tr>
+
+</table>
+
+<br>
+
+<b>Total kehadiran: 98%</b>
+
+</div>
+
+<!-- PENGUMUMAN -->
+<div class="portal-page" id="pengumuman">
+
+<h2>Pengumuman Guru</h2>
+
+<div class="pengumuman-item">
+
+<h3>Ujian Semester Ganjil</h3>
+
+<p>
+Ujian semester dilaksanakan tanggal 1–6 Desember 2026.
+</p>
+
+<small>Oleh: Keira Amara, S.Pd.</small>
+
+</div>
+
+<div class="pengumuman-item">
+
+<h3>Class Meeting</h3>
+
+<p>
+Class Meeting dilaksanakan setelah ujian semester.
+</p>
+
+<small>Oleh: OSIS</small>
+
+</div>
+
+<div class="pengumuman-item">
+
+<h3>Kebersihan Lingkungan</h3>
+
+<p>
+Seluruh siswa wajib menjaga kebersihan lingkungan sekolah.
+</p>
+
+<small>Oleh: Kael Bimantara, M.Pd.</small>
+
+</div>
+
+</div>
+
+</main>
+</div>
+</div>
+
+<script>
+
+/* NAVIGASI HALAMAN */
+function showPage(n) {
+
+    document.querySelectorAll(".page").forEach(p => {
+        p.classList.remove("active");
+    });
+
+    let halaman = document.getElementById("page-" + n);
+
+    if (halaman) {
+        halaman.classList.add("active");
+    }
+
+    window.scrollTo(0,0);
+    tutupMenu();
+}
+
+/* MENU RESPONSIVE */
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+}
+
+function tutupMenu() {
+    let menu = document.getElementById("navLinks");
+
+    if (menu) {
+        menu.classList.remove("show");
+    }
+}
+
+/* SLIDER */
+let slideIdx = 0;
+
+function showSlide(n) {
+
+    let slides = document.querySelectorAll(".slide");
+    let dots = document.querySelectorAll(".dot");
+
+    if (!slides.length) return;
+
+    slideIdx = (n + slides.length) % slides.length;
+
+    slides.forEach(x => x.classList.remove("active"));
+    dots.forEach(x => x.classList.remove("active"));
+
+    slides[slideIdx].classList.add("active");
+
+    if (dots[slideIdx]) {
+        dots[slideIdx].classList.add("active");
+    }
+}
+
+function gantiSlide(n) {
+    showSlide(slideIdx + n);
+}
+
+function keSlide(n) {
+    showSlide(n);
+}
+
+setInterval(() => {
+
+    let halaman = document.getElementById("page-home");
+
+    if (halaman && halaman.classList.contains("active")) {
+        gantiSlide(1);
+    }
+
+},5000);
+
+/* LOGIN */
+function bukaLogin() {
+    document.getElementById("loginModal").classList.add("active");
+}
+
+function tutupLogin() {
+    document.getElementById("loginModal").classList.remove("active");
+}
+
+/* PORTAL */
+let simpanWebsite = null;
+let simpanFooter = null;
+
+function masukPortal() {
+
+    let website = document.getElementById("website");
+    let footer = document.getElementById("footerUtama");
+    let portal = document.getElementById("portal");
+
+    if (website) {
+        simpanWebsite = website;
+        website.remove();
+    }
+
+    if (footer) {
+        simpanFooter = footer;
+        footer.remove();
+    }
+
+    document.body.prepend(portal);
+
+    portal.style.display = "block";
+    portal.hidden = false;
+
+    window.scrollTo(0,0);
+}
+
+function keluarPortal() {
+
+    let portal = document.getElementById("portal");
+
+    portal.style.display = "none";
+
+    if (simpanWebsite) {
+        document.body.insertBefore(simpanWebsite,portal);
+    }
+
+    if (simpanFooter) {
+        document.body.insertBefore(simpanFooter,portal);
+    }
+
+    simpanWebsite = null;
+    simpanFooter = null;
+
+    showPage("home");
+
+    window.scrollTo(0,0);
+}
+
+/* FORM LOGIN */
+document.getElementById("formLogin").addEventListener("submit",function(e) {
+
+    e.preventDefault();
+
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value;
+
+    if (
+        (username === "siswa" && password === "siswa123") ||
+        (username === "admin" && password === "admin123")
+    ) {
+
+        tutupLogin();
+        masukPortal();
+        this.reset();
+
+    } else {
+
+        alert("Username atau password salah!");
+
+    }
+
+});
+
+/* LOGOUT */
+function logout() {
+
+    if (confirm("Apakah kamu yakin ingin logout?")) {
+        keluarPortal();
+    }
+
+}
+
+/* NAVIGASI PORTAL */
+function bukaHalaman(n,t) {
+
+    document.querySelectorAll(".portal-page").forEach(p => {
+        p.classList.remove("active");
+    });
+
+    document.querySelectorAll(".sidebar button").forEach(b => {
+        b.classList.remove("active");
+    });
+
+    document.getElementById(n).classList.add("active");
+
+    if (t) {
+        t.classList.add("active");
+    }
+
+}
+
+/* DETAIL FASILITAS */
+function detailFasilitas(j,i) {
+    alert(j + "\n\n" + i);
+}
+
+/* DETAIL EKSTRAKURIKULER */
+function detailEkstra(n,j) {
+    alert("Ekstrakurikuler: " + n + "\nJadwal: " + j);
+}
+
+/* DETAIL BERITA */
+function detailBerita(j,i) {
+    alert(j + "\n\n" + i);
+}
+
+/* FOTO */
+function bukaFoto(s,a) {
+
+    document.getElementById("lightboxImg").src = s;
+
+    document.getElementById("lightboxCaption").innerText = a;
+
+    document.getElementById("lightbox").classList.add("active");
+
+}
+
+function tutupLightbox() {
+    document.getElementById("lightbox").classList.remove("active");
+}
+
+/* TOMBOL ESCAPE */
+document.addEventListener("keydown",function(e) {
+
+    if (e.key === "Escape") {
+        tutupLightbox();
+        tutupLogin();
+    }
+
+});
+
+/* FORM PPDB */
+document.getElementById("formPPDB").addEventListener("submit",function(e) {
+
+    e.preventDefault();
+
+    let nama = document.getElementById("namaPPDB").value;
+
+    let jalur = document.getElementById("jalurPPDB").value;
+
+    document.getElementById("ppdbHasil").innerText =
+        "Terima kasih " + nama +
+        "! Formulir jalur " + jalur +
+        " berhasil dikirim.";
+
+    alert("Pendaftaran berhasil disimulasikan!");
+
+    this.reset();
+
+});
+
+/* FORM KONTAK WHATSAPP */
+document.getElementById("formKontak").addEventListener("submit",function(e) {
+
+    e.preventDefault();
+
+    let nama = document.getElementById("kontakNama").value;
+
+    let hp = document.getElementById("kontakHP").value;
+
+    let pesan = document.getElementById("kontakPesan").value;
+
+    let teks = "Halo, saya " + nama +
+        " (" + hp + "). " + pesan;
+
+    window.open(
+        "https://wa.me/6281234567890?text=" +
+        encodeURIComponent(teks),
+        "_blank"
+    );
+
+    this.reset();
+
+});
+
+/* DATA GURU */
+let guru = [
+
+    ["Dirgantara Wirasena, S.Pd.","Bahasa Indonesia","yeop.jpeg"],
+
+    ["Bara Mahesa, S.Pd.","Matematika","mtk.jpeg"],
+
+    ["Nara Ayudia, S.Pd.","Bahasa Inggris","Dasha.jpeg"],
+
+    ["Daffa Arka, S.Kom.","Informatika","Jay.jpeg"],
+
+    ["Salsabila Zahra, S.Pd.","Biologi","guru.jpeg"],
+
+    ["Yoga Pradana, S.Pd.","Olahraga","raga.jpeg"],
+
+    ["Aisyah Kirana, S.Ag.","PAI","Pa.jpeg"],
+
+    ["Revan Praditya, S.Pd.","Fisika","fisik.jpeg"]
+
+];
+
+/* MENAMPILKAN DATA GURU */
+document.getElementById("daftarGuru").innerHTML = guru.map(g => `
+
+    <article class="card guru-card">
+
+        <img
+            src="${g[2]}"
+            alt="${g[0]}"
+            onclick="bukaFoto(this.src,'${g[0]}')"
+        >
+
+        <h3>${g[0]}</h3>
+
+        <p>${g[1]}</p>
+
+        <button
+            class="btn"
+            onclick="alert('${g[0]} - Guru ${g[1]}')"
+        >
+            Detail Guru
+        </button>
+
+    </article>
+
+`).join("");
+
+</script>
+
+</body>
+</html>
